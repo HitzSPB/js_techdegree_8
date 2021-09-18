@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const { Op } = require("sequelize");
 const Book = require('../models').Book;
 const maxBooksApage = 5;
