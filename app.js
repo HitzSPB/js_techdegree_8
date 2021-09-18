@@ -23,14 +23,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/books', bookRoutes);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-seq.authenticate();
+// Sync database model
+// seq.authenticate() ;
 seq.sync();
 
+// Checking for 404
 app.use(function(req, res, next) {
   console.log('Page Not found have been entered');
   const err = new Error()
