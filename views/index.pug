@@ -1,5 +1,25 @@
+
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 The Book Storage App
+  p
+    a.button(href='/books/new') Create New Book
+  form.search(action="/books", method="post")
+    input(type='text' name='searchtext' placeholder='Search..')
+    input(type='submit' value='Search')
+  table
+    thead
+      tr
+        th Title
+        th Author
+        th Genre
+        th Year
+    tbody
+      each book in books.rows
+        tr
+          td
+            a(href=`/books/${book.id}`)=book.title
+          td=book.author
+          td=book.genre
+          td=book.year

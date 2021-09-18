@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull: {
+        notEmpty: {
           msg: 'Title cannot be left empty'
         }
     }
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull: {
+        notEmpty: {
           msg: 'Author cannot be left empty'
         }
     }
