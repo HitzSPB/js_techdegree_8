@@ -23,3 +23,6 @@ block content
           td=book.author
           td=book.genre
           td=book.year
+  each index in pagecountArr 
+    span
+        a.button(href=`/books/?page=${index}`) #{index}
