@@ -18,12 +18,13 @@ function asyncHandler(cb){
 }
 
 router.get('/', asyncHandler(async (req, res) => {
+  // https://github.com/HitzSPB/js_techdegree_2/blob/main/js/script.js pagination
   const page = (req.query.page -1) || 0;
-  const offset = page * maxBooksApage;
+  const startIndex = page * maxBooksApage;
 
   const  books = await Book.findAndCountAll({
     limit: maxBooksApage,
-    offset: offset
+    offset: startIndex
   });
 
   const pages = Math.ceil(books.count / maxBooksApage);
@@ -43,20 +44,20 @@ router.post('/', asyncHandler(async (req, res) => {
     // https://sequelize.org/master/manual/model-querying-basics.html
     books = await Book.findAndCountAll({where: {
       [Op.or]: [
-        {title: search},
-        {author: search},
-        {genre: search},
-        {year: search}
+        {title: {[Op.like]: `%${search}%`}},
+        {author: {[Op.like]: `%${search}%`}},
+        {genre: {[Op.like]: `%${search}%`}},
+        {year: {[Op.like]: `%${search}%`}}
       ]
     }});
   }
   else
   {    
     const page = (req.query.page -1) || 0;
-    const offset = page * maxBooksApage;
+    const startIndex = page * maxBooksApage;
     books = await Book.findAndCountAll({
       limit: maxBooksApage,
-      offset: offset
+      offset: startIndex
     });
     const pages = Math.ceil(books.count / maxBooksApage);
     for(let i = 1; i<=pages; i++)
