@@ -22,7 +22,7 @@ router.get('/', asyncHandler(async (req, res) => {
   const page = (req.query.page -1) || 0;
   const startIndex = page * maxBooksApage;
 
-  const  books = await Book.findAndCountAll({
+  let books = await Book.findAndCountAll({
     limit: maxBooksApage,
     offset: startIndex
   });
@@ -86,7 +86,7 @@ router.post('/new', asyncHandler(async (req, res) =>
   }));
 
 router.post('/:id', asyncHandler(async (req, res) => {
-  book = await Book.findByPk(req.params.id);
+  let book = await Book.findByPk(req.params.id);
   await book.update(req.body)
   res.redirect("/")}));
   
