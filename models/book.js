@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           msg: 'Title cannot be left empty'
         }
-    },
+    }
+  },
     author: 
     {
       type: DataTypes.STRING,
@@ -31,7 +32,8 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           msg: 'Author cannot be left empty'
         }
-    }, 
+    }
+  }, 
     genre: 
     {
       type: DataTypes.STRING,
@@ -42,7 +44,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     } 
-  }, {
+  },
+  {
     sequelize,
     modelName: 'Book',
   });
