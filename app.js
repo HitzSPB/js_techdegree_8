@@ -7,6 +7,7 @@ var logger = require('morgan');
 const seq = require('./models').sequelize;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const { Console } = require('console');
 
 var app = express();
 
@@ -28,7 +29,7 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-seq.authenticate()
+seq.authenticate();
 seq.sync();
 
 // error handler
