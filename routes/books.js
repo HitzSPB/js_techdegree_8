@@ -28,7 +28,6 @@ router.post('/', asyncHandler(async (req, res) => {
   {
     console.log("enter")
     // https://sequelize.org/master/manual/model-querying-basics.html
-    try{
     books = await Book.findAndCountAll({where: {
       [Op.or]: [
         {title: search},
@@ -38,11 +37,6 @@ router.post('/', asyncHandler(async (req, res) => {
       ]
     }});
   console.log(books);
-  }
-    catch(err)
-    {
-      console.log(err);
-    }
   }
   else
   {
