@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const { Op } = require("sequelize");
 const Book = require('../models').Book;
+const maxBooksApage = 5;
 
 function asyncHandler(cb){
   return async(req, res, next) => {
@@ -26,7 +27,6 @@ router.post('/', asyncHandler(async (req, res) => {
   let books;
   if ( search != '')
   {
-    console.log("enter")
     // https://sequelize.org/master/manual/model-querying-basics.html
     books = await Book.findAndCountAll({where: {
       [Op.or]: [
@@ -36,7 +36,6 @@ router.post('/', asyncHandler(async (req, res) => {
         {year: search}
       ]
     }});
-  console.log(books);
   }
   else
   {
