@@ -18,12 +18,25 @@ function asyncHandler(cb){
 }
 
 router.get('/', asyncHandler(async (req, res) => {
-  const  books = await Book.findAndCountAll();
-  res.render('index', { books, title: 'Books' })}));
+  const page = (req.query.page -1) || 0;
+  const offset = page * maxBooksApage;
+
+  const  books = await Book.findAndCountAll({
+    limit: maxBooksApage,
+    offset: offset
+  });
+
+  const pages = Math.ceil(books.count / maxBooksApage);
+  const pagecountArr = [];
+  for(let i = 1; i<=pages; i++)
+  {
+    pagecountArr.push(i);
+  }
+  res.render('index', { books, title: 'Books', pagecountArr })}));
 
 router.post('/', asyncHandler(async (req, res) => {
-  var search = req.body.searchtext;
-  console.log(search);
+  let search = req.body.searchtext;
+  const pagecountArr = [];
   let books;
   if ( search != '')
   {
@@ -38,12 +51,20 @@ router.post('/', asyncHandler(async (req, res) => {
     }});
   }
   else
-  {
-    books = await Book.findAndCountAll();
-
+  {    
+    const page = (req.query.page -1) || 0;
+    const offset = page * maxBooksApage;
+    books = await Book.findAndCountAll({
+      limit: maxBooksApage,
+      offset: offset
+    });
+    const pages = Math.ceil(books.count / maxBooksApage);
+    for(let i = 1; i<=pages; i++)
+    {
+      pagecountArr.push(i);
+    }
   }
-  
-  res.render('index', { books, title: 'Books' })}));
+  res.render('index', { books, title: 'Books', pagecountArr })}));
 router.get('/new', asyncHandler(async (req, res) => {res.render('new-book', { book: {}, title: 'New Book'})}));
 router.post('/new', asyncHandler(async (req, res) => 
 {
