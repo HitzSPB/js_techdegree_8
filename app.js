@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  console.log(`error status :: ${err.status} with message ${err.status}`);
+  console.log(`error status :: ${err.status} with message ${err.message}`);
   if(err.status === 404)
   {
     res.render('page-not-found', {title: "Page Not Found"});
